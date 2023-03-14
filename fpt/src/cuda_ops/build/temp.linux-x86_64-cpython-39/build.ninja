@@ -1,0 +1,37 @@
+ninja_required_version = 1.3
+cxx = c++
+nvcc = /home/kocsis/anaconda3/envs/lightdiff_sparse/bin/nvcc
+
+cflags = -pthread -B /home/kocsis/anaconda3/envs/lightdiff_sparse/compiler_compat -Wno-unused-result -Wsign-compare -DNDEBUG -O2 -Wall -fPIC -O2 -isystem /home/kocsis/anaconda3/envs/lightdiff_sparse/include -I/home/kocsis/anaconda3/envs/lightdiff_sparse/include -fPIC -O2 -isystem /home/kocsis/anaconda3/envs/lightdiff_sparse/include -fPIC -I/home/kocsis/anaconda3/envs/lightdiff_sparse/lib/python3.9/site-packages/torch/include -I/home/kocsis/anaconda3/envs/lightdiff_sparse/lib/python3.9/site-packages/torch/include/torch/csrc/api/include -I/home/kocsis/anaconda3/envs/lightdiff_sparse/lib/python3.9/site-packages/torch/include/TH -I/home/kocsis/anaconda3/envs/lightdiff_sparse/lib/python3.9/site-packages/torch/include/THC -I/home/kocsis/anaconda3/envs/lightdiff_sparse/include -I/home/kocsis/anaconda3/envs/lightdiff_sparse/include/python3.9 -c
+post_cflags = -g -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=cuda_sparse_ops -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++14
+cuda_cflags = -I/home/kocsis/anaconda3/envs/lightdiff_sparse/lib/python3.9/site-packages/torch/include -I/home/kocsis/anaconda3/envs/lightdiff_sparse/lib/python3.9/site-packages/torch/include/torch/csrc/api/include -I/home/kocsis/anaconda3/envs/lightdiff_sparse/lib/python3.9/site-packages/torch/include/TH -I/home/kocsis/anaconda3/envs/lightdiff_sparse/lib/python3.9/site-packages/torch/include/THC -I/home/kocsis/anaconda3/envs/lightdiff_sparse/include -I/home/kocsis/anaconda3/envs/lightdiff_sparse/include/python3.9 -c
+cuda_post_cflags = -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -O2 -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=cuda_sparse_ops -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 -std=c++14
+cuda_dlink_post_cflags = 
+ldflags = 
+
+rule compile
+  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags
+  depfile = $out.d
+  deps = gcc
+
+rule cuda_compile
+  depfile = $out.d
+  deps = gcc
+  command = $nvcc  $cuda_cflags -c $in -o $out $cuda_post_cflags
+
+
+
+
+
+build /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/cuda_ops_api.o: compile /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/src/cuda_ops_api.cpp
+build /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/dot_product/dot_product.o: compile /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/src/dot_product/dot_product.cpp
+build /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/dot_product/dot_product_kernel.o: cuda_compile /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/src/dot_product/dot_product_kernel.cu
+build /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/scalar_attention/scalar_attention.o: compile /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/src/scalar_attention/scalar_attention.cpp
+build /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/scalar_attention/scalar_attention_kernel.o: cuda_compile /home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/src/scalar_attention/scalar_attention_kernel.cu
+
+
+
+
+
+
+

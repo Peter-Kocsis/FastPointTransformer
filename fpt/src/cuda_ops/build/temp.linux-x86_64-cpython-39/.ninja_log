@@ -1,0 +1,6 @@
+# ninja log v5
+1	18465	1678797171708240700	/home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/scalar_attention/scalar_attention_kernel.o	88215ac88fdf6a1f
+1	18587	1678797171832241565	/home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/dot_product/dot_product_kernel.o	de65a86becf5446e
+0	21033	1678797174256258481	/home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/cuda_ops_api.o	57a51475d8c2a350
+27	7296	1678797290081066585	/home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/scalar_attention/scalar_attention.o	b2cbeeb449515361
+12	7403	1678797325349312610	/home/kocsis/work/projects/lighting_generation/lighting-diffusion/external/FastPointTransformer/fpt/src/cuda_ops/build/temp.linux-x86_64-cpython-39/src/dot_product/dot_product.o	e06c2c7ec907ef2b
