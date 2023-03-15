@@ -132,7 +132,7 @@ class FastPointTransformer(nn.Module):
     LAYER = LightweightSelfAttentionLayer
     BLOCK = LightweightSelfAttentionBlock
 
-    def __init__(self, in_channels, out_channels, time_embed_dim, voxel_size=0.1):
+    def __init__(self, in_channels, out_channels, time_embed_dim, voxel_size=0.02):
         super(FastPointTransformer, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
